@@ -7,13 +7,22 @@ class Person
 
   def get_married(person)
     self.partner = person
-    person.partner = self
+    if person.class != Person
+      raise PartnerError
+    else
+      person.partner = self
+    end
+  end
+
+  class PartnerError < StandardError
+    def message
+      "You must give the get_married method an arguement of an instance of the person class!"
+    end
   end
 
 end
 
-class PartnerError < StandardError
-end
+
 
 beyonce = Person.new("Beyonce")
 beyonce.get_married("Jay-Z")
